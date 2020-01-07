@@ -38,11 +38,6 @@ namespace VK_API.VkWrapper
         {
             VkCollection<Audio> v = vkApi.Audio.Get(new AudioGetParams() { AccessKey = "id556153348" });
             Audio audio = v[2];
-
-            using (StreamWriter file = new StreamWriter("url.txt"))
-            {
-                file.WriteLine(audio.Url.AbsoluteUri);
-            }
             return audio.Url;
         }
 
