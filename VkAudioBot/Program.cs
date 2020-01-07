@@ -20,7 +20,6 @@ namespace VK_API
             accountJson = Environment.GetEnvironmentVariable("Account");
 #endif
             GlobalSettings.Account = JsonSerializer.Deserialize<Account>(accountJson);
-            Console.WriteLine(accountJson);
 
             AudioProvider audioProvider = new AudioProvider();
             audioProvider.Download(audioProvider.GetM3u8());

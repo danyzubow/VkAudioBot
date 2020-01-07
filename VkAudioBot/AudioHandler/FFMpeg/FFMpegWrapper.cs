@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace VK_API.AudioHandler.FFMpeg
@@ -18,7 +19,8 @@ namespace VK_API.AudioHandler.FFMpeg
             Process CmdProcess = new Process();
             CmdProcess.StartInfo.FileName = GlobalSettings.IsUnix ? FFMpegUnix : FFMpegWin;
             CmdProcess.StartInfo.Arguments = string.Format(ArgOneTsFile, Path.Combine(workFolder, Def.IndexM3u8), Path.Combine(workFolder, FileOutTs));
-
+            Console.WriteLine(CmdProcess.StartInfo.FileName);
+            Console.WriteLine(CmdProcess.StartInfo.Arguments);
             CmdProcess.StartInfo.CreateNoWindow = true;
             CmdProcess.StartInfo.UseShellExecute = false;
             CmdProcess.StartInfo.RedirectStandardInput = true;
