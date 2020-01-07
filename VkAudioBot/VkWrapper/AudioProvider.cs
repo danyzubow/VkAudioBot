@@ -43,6 +43,8 @@ namespace VK_API.VkWrapper
                 Console.WriteLine($"{i++}) {a.Url}");
             }
             Audio audio = v[1];
+            Console.WriteLine($"----) {audio.Url}");
+            Console.WriteLine($"----) {audio.Url.AbsoluteUri}");
             return audio.Url;
         }
 
