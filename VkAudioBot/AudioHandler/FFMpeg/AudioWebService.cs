@@ -15,6 +15,9 @@ namespace VK_API.AudioHandler.FFMpeg
 
         public static void Load(Uri uri, string tmpSubPath)
         {
+            Console.WriteLine(uri.AbsoluteUri);
+            Console.WriteLine(uri.AbsoluteUri.Split(Def.IndexM3u8).First());
+            Console.WriteLine(uri.AbsoluteUri.Split(Def.IndexM3u8).ToArray()[1]);
             string baseUrl = uri.AbsoluteUri.Split(Def.IndexM3u8).First();
             Dictionary<string, byte[]> bufferTs = new Dictionary<string, byte[]>();
             using (var client = new HttpClient(new SocketsHttpHandler()

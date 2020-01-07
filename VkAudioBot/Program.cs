@@ -11,18 +11,16 @@ namespace VK_API
         static void Main(string[] args)
         {
             string accountJson;
-            if (GlobalSettings.IsUnix)
+#if DEBUG
+            using (StreamReader reader = new StreamReader("Account.txt"))
             {
-                accountJson = Environment.GetEnvironmentVariable("Account");
+                accountJson = reader.ReadToEnd();
             }
-            else
-            {
-                using (StreamReader reader = new StreamReader("Account.txt"))
-                {
-                    accountJson = reader.ReadToEnd();
-                }
-            }
+#else
+            accountJson = Environment.GetEnvironmentVariable("Account");
+#endif
             GlobalSettings.Account = JsonSerializer.Deserialize<Account>(accountJson);
+            Console.WriteLine(accountJson);
 
             AudioProvider audioProvider = new AudioProvider();
             audioProvider.Download(audioProvider.GetM3u8());
