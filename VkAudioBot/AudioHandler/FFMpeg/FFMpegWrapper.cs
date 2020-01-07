@@ -21,17 +21,17 @@ namespace VK_API.AudioHandler.FFMpeg
             CmdProcess.StartInfo.Arguments = string.Format(ArgOneTsFile, Path.Combine(workFolder, Def.IndexM3u8), Path.Combine(workFolder, FileOutTs));
             Console.WriteLine(CmdProcess.StartInfo.FileName);
             Console.WriteLine(CmdProcess.StartInfo.Arguments);
-            CmdProcess.StartInfo.CreateNoWindow = true;
-            CmdProcess.StartInfo.UseShellExecute = false;
-            CmdProcess.StartInfo.RedirectStandardInput = true;
-            CmdProcess.StartInfo.RedirectStandardOutput = true;
-            CmdProcess.StartInfo.RedirectStandardError = true;
-            CmdProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            //CmdProcess.StartInfo.CreateNoWindow = true;
+            // CmdProcess.StartInfo.UseShellExecute = false;
+           // CmdProcess.StartInfo.RedirectStandardInput = true;
+           // CmdProcess.StartInfo.RedirectStandardOutput = true;
+             CmdProcess.StartInfo.RedirectStandardError = true;
+            // CmdProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
             //    CmdProcess.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
             //    CmdProcess.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
 
-            CmdProcess.EnableRaisingEvents = true;
+          //  CmdProcess.EnableRaisingEvents = true;
             //   CmdProcess.Exited += new EventHandler(CmdProcess_Exited);   
 
             CmdProcess.Start();
