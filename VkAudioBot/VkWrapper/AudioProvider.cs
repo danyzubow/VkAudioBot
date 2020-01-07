@@ -37,6 +37,11 @@ namespace VK_API.VkWrapper
         public Uri GetM3u8()
         {
             VkCollection<Audio> v = vkApi.Audio.Get(new AudioGetParams() { AccessKey = "id556153348" });
+            int i = 0;
+            foreach (Audio a in v)
+            {
+                Console.WriteLine($"{i++}) {a.Url}");
+            }
             Audio audio = v[1];
             return audio.Url;
         }
