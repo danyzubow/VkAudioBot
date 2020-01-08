@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using VK_API.VkWrapper;
@@ -10,6 +11,35 @@ namespace VK_API
     {
         static void Main(string[] args)
         {
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"ls\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                }
+            };
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            Console.WriteLine(result);
+
+            process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"chmod 777 Tools/FFMpeg/ffmpeg\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                }
+            };
+            process.Start();
+            result = process.StandardOutput.ReadToEnd();
+            Console.WriteLine(result);
             string accountJson;
 #if DEBUG
             using (StreamReader reader = new StreamReader("Account.txt"))
