@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
+using System.Threading;
 using VK_API.VkWrapper;
 using VK_API.VkWrapper.Accounts;
 
@@ -11,22 +12,7 @@ namespace VK_API
     {
         static void Main(string[] args)
         {
-            var process = new Process()
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "/bin/bash",
-                    Arguments = $"-c \"ls\"",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                }
-            };
-            process.Start();
-            string result = process.StandardOutput.ReadToEnd();
-            Console.WriteLine(result);
-
-            process = new Process()
+            Process process = new Process()
             {
                 StartInfo = new ProcessStartInfo
                 {
@@ -38,7 +24,7 @@ namespace VK_API
                 }
             };
             process.Start();
-            result = process.StandardOutput.ReadToEnd();
+            string result = process.StandardOutput.ReadToEnd();
             Console.WriteLine(result);
             string accountJson;
 #if DEBUG
@@ -54,7 +40,10 @@ namespace VK_API
             AudioProvider audioProvider = new AudioProvider();
             audioProvider.Download(audioProvider.GetM3u8());
 
-
+            while (true)
+            {
+                Thread.Sleep(100);
+            }
         }
     }
 }
