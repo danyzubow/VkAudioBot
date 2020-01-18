@@ -32,7 +32,7 @@ namespace VK_API
 
         public static bool UseProxy
         {
-            get { return false; }
+            get { return true; }
         }
 
         public static Account Account { get; set; }

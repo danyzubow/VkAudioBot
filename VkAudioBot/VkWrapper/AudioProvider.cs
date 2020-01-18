@@ -1,8 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text.Json;
 using VK_API.AudioHandler.FFMpeg;
+using VK_API.VkWrapper.Accounts;
+using VkAudioBot.VkWrapper.Models;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Enums.Filters;
@@ -13,7 +18,7 @@ using VkNet.Utils;
 
 namespace VK_API.VkWrapper
 {
-    class AudioProvider
+    public class AudioProvider
     {
         private VkApi vkApi;
 
@@ -37,8 +42,20 @@ namespace VK_API.VkWrapper
         public Uri GetM3u8()
         {
             VkCollection<Audio> v = vkApi.Audio.Get(new AudioGetParams() { AccessKey = "id556153348" });
-            Audio audio = v[1];
+            Audio audio = v[0];
             return audio.Url;
+        }
+
+        public List<AudioInfoModel> GetPlayList(string vkId)
+        {
+            VkCollection<Audio> pList = vkApi.Audio.Get(new AudioGetParams() { AccessKey = vkId });
+            return pList.ToList().Select(a =>
+                  new AudioInfoModel(a.Title, a.Artist, ((a.Url != null) && (!string.IsNullOrEmpty(a.Url.AbsoluteUri))), pList.IndexOf(a))).ToList();
+        }
+
+        public string GetPlayListJson(string vkId)
+        {
+            return JsonSerializer.Serialize(GetPlayList(vkId));
         }
 
         public void Download(Uri m3u8)
@@ -93,6 +110,17 @@ namespace VK_API.VkWrapper
         #endregion
         public AudioProvider()
         {
+            string accountJson;
+#if DEBUG
+            using (StreamReader reader = new StreamReader("Account.txt"))
+            {
+                accountJson = reader.ReadToEnd();
+            }
+#else
+            accountJson = Environment.GetEnvironmentVariable("Account");
+#endif
+            GlobalSettings.Account = JsonSerializer.Deserialize<Account>(accountJson);
+
             IServiceCollection container = new ServiceCollection();
             if (GlobalSettings.UseProxy) ProxyProvider.ConfigurateProxy(container);
             container.AddAudioBypass();

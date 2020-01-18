@@ -9,8 +9,8 @@ namespace VK_API.VkWrapper
 {
     static class ProxyProvider
     {
-        static string proxtUrl = "http://82.208.72.215:9650";
-
+       // static string proxtUrl = "http://82.208.72.215:9650"; //амстердам
+        static string proxtUrl = "http://91.191.250.142:31059";
         private static WebProxy proxy;
 
         private static string[] proxtUrls =

@@ -1,0 +1,14 @@
+<label style="font-size: larger; font-weight: 600;">Enter vk url: </label>
+<input style="min-width: 500;" [(ngModel)]="name" placeholder="https://vk.com/id1234567">
+<button>Search</button>
+<h1>Добро пожаловать {{name}}!</h1>
+--------------------
+<div>
+    <ng-template ngFor let-item [ngForOf]="audios">
+        <p>
+            <label style="color:Red"> {{item.artist}}</label>
+            <label style="color:green"> {{item.title}}</label>
+            <button (click)="search(item.indexInPlayList)">Download</button>
+        </p>
+    </ng-template>
+</div>
