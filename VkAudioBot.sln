@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VkAudioBot", "VkAudioBot\VkAudioBot.csproj", "{48A571DD-55DD-4930-9802-CB79B6DE27C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramService", "TelegramService\TelegramService.csproj", "{0CCA5821-E135-4C28-B140-6D1CBC4467E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramService", "TelegramService\TelegramService.csproj", "{0CCA5821-E135-4C28-B140-6D1CBC4467E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

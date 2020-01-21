@@ -9,18 +9,18 @@ namespace VK_API.AudioHandler.FFMpeg
         private const string FFMpegWin = "Tools\\FFMpeg\\ffmpeg.exe";
         private const string FFMpegUnix = "Tools/FFMpeg/ffmpeg";
         private const string FileOutTs = "audio.ts";
-        private const string FileOutM4A = "out.m4a";
-        private const string ArgOneTsFile = " -i \"{0}\" -c copy -y -f mpegts \"{1}\"";
-        private const string ArgOneM4aFile = " -i {0} -acodec aac {1}";
+        private const string FileOutMP3 = "out.mp3";
+        private const string ArgExtractAudioFile = " -i \"{0}\" -acodec copy \"{1}\"";
+        //private const string ArgOneM4aFile = " -i {0} -acodec aac {1}";
         private const int WaitForExitMilisec = 60000; //60sec
 
-        public static bool ConvertM3u8ToM4a(string subPath)
+        public static bool ConvertM3u8ToMp3(string subPath)
         {
             string workFolder = Path.Combine(Def.Tmp, subPath);
             Process CmdProcess = new Process();
             CmdProcess.StartInfo.FileName = GlobalSettings.IsUnix ? FFMpegUnix : FFMpegWin;
-            CmdProcess.StartInfo.Arguments = string.Format(ArgOneTsFile, Path.Combine(workFolder, Def.IndexM3u8),
-                Path.Combine(workFolder, FileOutTs));
+            CmdProcess.StartInfo.Arguments = string.Format(ArgExtractAudioFile, Path.Combine(workFolder, Def.IndexM3u8),
+                Path.Combine(workFolder, FileOutMP3));
 
             //CmdProcess.StartInfo.CreateNoWindow = true;
             // CmdProcess.StartInfo.UseShellExecute = false;
@@ -38,13 +38,14 @@ namespace VK_API.AudioHandler.FFMpeg
             CmdProcess.Start();
             if (CmdProcess.WaitForExit(WaitForExitMilisec))
             {
-                CmdProcess.StartInfo.Arguments = string.Format(ArgOneM4aFile, Path.Combine(workFolder, FileOutTs),
-                    Path.Combine(workFolder, FileOutM4A));
-                CmdProcess.Start();
-                if (CmdProcess.WaitForExit(WaitForExitMilisec))
-                {
-                    return true;
-                }
+                return true;
+                //CmdProcess.StartInfo.Arguments = string.Format(ArgOneM4aFile, Path.Combine(workFolder, FileOutTs),
+                //    Path.Combine(workFolder, FileOutMP3));
+                //CmdProcess.Start();
+                //if (CmdProcess.WaitForExit(WaitForExitMilisec))
+                //{
+                //    return true;
+                //}
             }
 
             return false;

@@ -11,6 +11,7 @@ using VkAudioBot.VkWrapper.Models;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Enums.Filters;
+using VkNet.Exception;
 using VkNet.Model;
 using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
@@ -22,18 +23,27 @@ namespace VK_API.VkWrapper
     {
         private VkApi vkApi;
 
-        #region privateMethod
+        #region privateMethodVkNet.AudioBypassService
 
         private void Login(VkApi vkApi)
         {
-            vkApi.Authorize(new ApiAuthParams()
+            try
             {
-                // AccessToken = "5ab24623eaf5a7c047d0061231df0e15b232782836559c718d1bdcdafc47fe744534a0b5ac301a73d5607"
-                ApplicationId = 123456,
-                Login = GlobalSettings.Account.Login,
-                Password = GlobalSettings.Account.Password,
-                Settings = Settings.All,
-            });
+                vkApi.Authorize(new ApiAuthParams()
+                {
+                    AccessToken = "ec09efb9564b29ffe6a8887c5abbc8cf396613386200fcf2ba66dc13decdb50487aab0de2d3e3aef2a63b",
+                    //   ApplicationId = 123456,
+                    //   Login = GlobalSettings.Account.Login,
+                    //  Password = GlobalSettings.Account.Password,
+                    //   Settings = Settings.All,
+                });
+            }
+            catch (CaptchaNeededException cEx)
+            {
+                Console.WriteLine(cEx);
+                throw;
+            }
+
         }
         #endregion
 
@@ -43,6 +53,7 @@ namespace VK_API.VkWrapper
         {
             VkCollection<Audio> v = vkApi.Audio.Get(new AudioGetParams() { AccessKey = "id556153348" });
             Audio audio = v[0];
+            Console.WriteLine(audio.Url.AbsolutePath);
             return audio.Url;
         }
 
@@ -67,7 +78,7 @@ namespace VK_API.VkWrapper
                 Directory.CreateDirectory(path);
             }
             AudioWebService.Load(m3u8, subPath);
-            FFMpegWrapper.ConvertM3u8ToM4a(subPath);
+            FFMpegWrapper.ConvertM3u8ToMp3(subPath);
         }
 
         public void DownloadFFMpeg(Uri m3u8, bool useProxy)

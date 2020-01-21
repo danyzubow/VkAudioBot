@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,13 @@ namespace VK_API.AudioHandler.FFMpeg
             }))
             {
                 Task<string> data = client.GetStringAsync(uri.AbsoluteUri);
+
+                HttpWebRequest req = (HttpWebRequest) WebRequest.Create(uri.AbsoluteUri);
+              //  req.Method = HttpMethod.Post.Method;
+                req.Proxy = ProxyProvider.Proxy;
+                var res = req.GetResponse();
+
+
                 StringBuilder indexBuilder = new StringBuilder(headerM3U8 + "\n");
                 string[] lines = data.Result.Split('\n');
                 if (lines.Any())
