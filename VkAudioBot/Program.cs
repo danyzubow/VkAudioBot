@@ -76,6 +76,7 @@ namespace VK_API
 };
         public static void Main(string[] args)
         {
+            Console.WriteLine("Start Main");
             int i = 0;
             //    foreach (string ip in proxtUrls)
             {
