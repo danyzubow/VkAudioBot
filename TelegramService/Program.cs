@@ -13,6 +13,7 @@ namespace TelegramService.Library
     {
         public static void Main(string[] args)
         {
+            VK_API.Program.Main(new []{"1"});
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -8,7 +8,7 @@ using VK_API.VkWrapper.Accounts;
 
 namespace VK_API
 {
-    class Program
+    public class Program
     {
 
         private static string[] proxtUrls =
@@ -74,7 +74,7 @@ namespace VK_API
 "178.176.192.37:4145",
 "176.32.177.30:51870"
 };
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             int i = 0;
             //    foreach (string ip in proxtUrls)
